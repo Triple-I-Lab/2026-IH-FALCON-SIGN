@@ -9,7 +9,7 @@ fft.cpp, fft.h: Adapted from the original fft.c provided by the FALCON team and 
     
 radix2.cpp, radix2.h: Our optimized radix-2 FFT/IFFT implementation for FALCON.
     
-ffSampling.cpp: Our FSM-based implementation of the ffSampling algorithm for the FALCON security level I parameter set.
+ffSampling.cpp, ffSampling_submodule.cpp: Our FSM-based implementation of the ffSampling algorithm for the FALCON security level I parameter set.
 
 FFT Representation and Hermitian Symmetry:
 
