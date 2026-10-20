@@ -93,9 +93,6 @@ static void ffSampling(samplerZ samp, void* samp_ctx, fpr z0[512], fpr z1[512], 
 		z0[i] = t1[i];
 		treex[i] = fpr_of(0);
 	}
-	//	for (int i = 0; i < 256; i++) {
-	//		printf("z1[%d]  %lf  ", i, z1[i]);
-	//	}printf("\n\n");
 	idx = 1;
 	while (1) {
 		if (state == 0) {
