@@ -14,7 +14,7 @@ FFT Representation and Hermitian Symmetry
 The FFT of a polynomial $f$ evaluates $f(\zeta)$ at all roots $\zeta$ of the polynomial $\phi$ over $\mathbb{C}$. Since $\phi$ has distinct complex roots, the FFT produces $n$ complex values, each consisting of a real part and an imaginary part. Storing all these values requires $2n$ floating-point numbers.
 
 However, when $f$ has real coefficients, its FFT representation exhibits Hermitian symmetry. For every root $\zeta$ of $\phi$, its complex conjugate $\bar{\zeta}$ is also a root, and
-    f(\bar{\zeta}) = \overline{f(\zeta)}.
+    $\bar{f(\zeta)}$ = $f(\bar{\zeta})$.
 Consequently, the FFT representation contains redundant information, allowing half of the complex values to be omitted. The representation can therefore be stored using $n/2$ complex values, equivalent to $n$ floating-point numbers.
 
 The Hermitian adjoint of $f$ is obtained in the FFT representation by taking the complex conjugate of each value, which negates its imaginary part. Therefore, when a polynomial is equal to its Hermitian adjoint, such as $ff^* + gg^*$, its FFT representation contains only real values.
