@@ -28,13 +28,7 @@ FSM-Based ffSampling Algorithm
 
 Our ffSampling implementation is organized into four algorithmic states, executed in the following order: $splitfft$, $SamplerZ$, calculation of the corresponding $t_0$ from $t_1$, and $mergefft$, as implemented in ffSampling.cpp.
 
-The recursive computation flow is managed using three variables:
-
-    $state$ controls the current FSM operation.
-    
-    $n$ represents the recursion level of $\mathsf{ffSampling}_n$.
-    
-    $idx$ tracks the position of the current subproblem in the recursion tree.
+The recursive computation flow is managed using three variables: $state$ controls the current FSM operation, $n$ represents the recursion level of $\mathsf{ffSampling}_n$ and $idx$ tracks the position of the current subproblem in the recursion tree.
 
 This FSM-based organization replaces recursive function calls with explicit state and index management, making the algorithm easier to trace and more suitable for hardware implementation.
 
