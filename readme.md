@@ -22,16 +22,16 @@ Consequently, the FFT representation contains redundant information, allowing ha
 
 The Hermitian adjoint of $f$ is obtained in the FFT representation by taking the complex conjugate of each value, which negates its imaginary part. Therefore, when a polynomial is equal to its Hermitian adjoint, such as $ff^* + gg^*$, its FFT representation contains only real values.
 
-FALCON exploits this property because its input polynomials have real coefficients. The second half of the spectrum is determined by the complex conjugates of the first half, so only $n/2$ complex values need to be computed and stored. This reduces the storage requirements of the FFT representation by half and can also reduce the associated computational cost. This property is described in the FALCON specification and reflected in the original \texttt{fft.c} implementation provided by the FALCON team.
+FALCON exploits this property because its input polynomials have real coefficients. The second half of the spectrum is determined by the complex conjugates of the first half, so only $n/2$ complex values need to be computed and stored. This reduces the storage requirements of the FFT representation by half and can also reduce the associated computational cost. This property is described in the FALCON specification and reflected in the original fft.c implementation provided by the FALCON team.
 
 FSM-Based ffSampling Algorithm
 
-Our ffSampling implementation is organized into four algorithmic states, executed in the following order: \texttt{splitfft}, \texttt{SamplerZ}, calculation of the corresponding $t_0$ from $t_1$, and \texttt{mergefft}, as implemented in ffSampling.cpp.
+Our ffSampling implementation is organized into four algorithmic states, executed in the following order: $splitfft$, $SamplerZ$, calculation of the corresponding $t_0$ from $t_1$, and $mergefft$, as implemented in ffSampling.cpp.
 
 The recursive computation flow is managed using three variables:
-    \texttt{state} controls the current FSM operation.
+    $state$ controls the current FSM operation.
     $n$ represents the recursion level of $\mathsf{ffSampling}_n$.
-    \texttt{idx} tracks the position of the current subproblem in the recursion tree.
+    $idx$ tracks the position of the current subproblem in the recursion tree.
 
 This FSM-based organization replaces recursive function calls with explicit state and index management, making the algorithm easier to trace and more suitable for hardware implementation.
 
