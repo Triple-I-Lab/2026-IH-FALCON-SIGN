@@ -36,4 +36,4 @@ Hardware Implementation
 
 In addition to the software implementation, our team has developed a configurable FALCON signature generation architecture in both C and RTL Verilog. The corresponding source code will be made available in this repository upon publication of the associated paper.
 
-Contributions, feedback, and technical discussions are welcome. Please feel free to contact us at \texttt{dangquang@inha.edu}.
+Contributions, feedback, and technical discussions are welcome. Please feel free to contact us at dangquang@inha.edu.
