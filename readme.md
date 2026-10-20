@@ -1,21 +1,48 @@
-Fast Fourier Transform (FFT) and Fast Fourier Sampling (ffSampling) is most challenging in Falcon for implementation, due to the hard in floating-point arithmetic and recursive function. This project presents the source code for a FFT/IFFT computations in Falcon and the proposed efficient ffSampling algorithm, which base on finite-state-machine (FSM) to control, more friendly with user and hardware implementations than the recursive algorithm proposed in Falcon specification.  . The implementation is developed and verified based on the Falcon team’s open-source code, available at: https://falcon-sign.info/
+\section{Overview}
 
-fft.cpp, fft.h: Adapted from the original fft.c provided by the Falcon team and modified to operate as a standalone implementation. These files include two FFT and two IFFT functions corresponding to the two parameter sets of $n$ in Falcon.
+The Fast Fourier Transform (FFT) and fast Fourier sampling (ffSampling) are among the most challenging components of \textsmaller{FALCON} to implement efficiently because of their intensive floating-point arithmetic and recursive computational structure. This project provides source code for FFT/IFFT computation in \textsmaller{FALCON} and our proposed efficient ffSampling algorithm. The proposed algorithm uses a finite-state machine (FSM) to control the sampling process, providing a more implementation-friendly alternative to the recursive algorithm specified in \textsmaller{FALCON}, particularly for hardware implementation.
 
-radix2.cpp, radix2.h: Our optimized radix-2 FFT/IFFT implementation for Falcon
+The implementation was developed and verified based on the \textsmaller{FALCON} team's open-source code, available at \url{https://falcon-sign.info/}.
 
-radix2.cpp, radix2.h: Our optimized radix-2 FFT/IFFT implementation for Falcon.
-ffSampling.cpp, ffSampling.h: The code design for FSM-based ffSampling algorithm in Falcon level I parameter sets.
+\subsection{Source Files}
 
+\begin{itemize}
+    \item \texttt{fft.cpp}, \texttt{fft.h}: Adapted from the original \texttt{fft.c} provided by the \textsmaller{FALCON} team and modified to support standalone execution. These files provide two FFT and two IFFT functions corresponding to the two polynomial degrees, $n=512$ and $n=1024$, used by \textsmaller{FALCON}.
 
-The Fast Fourier Transform for a polynomial computes $f$($\zeta$) for all roots of $\phi$ (over C). $\phi$ has distinct roots in C, leading to $n$ values $f(\zeta)$, each being a complex number, with a real and an imaginary part. Storage space requirements are then 2$n$ floating-point numbers. However, if $f$ is real, then, for every root $\zeta$ of $\phi$, $\bar{\zeta}$ is also a root of $\phi$ and $\bar{f(\zeta)}$ = $f(\bar{\zeta})$. Thus, the FFT representation is redundant, and half of the values can be omitted, reducing storage space requirements to $n$/2 complex numbers, hence $n$ floating-point values.
+    \item \texttt{radix2.cpp}, \texttt{radix2.h}: Our optimized radix-2 FFT/IFFT implementation for \textsmaller{FALCON}.
 
-The Hermitian adjoint of $f$ is obtained in FFT representation by simply computing the conjugate
-of each $f(\zeta)$, i.e. negating the imaginary part. This means that when a polynomial is equal to
-its Hermitian adjoint (e.g. $ff^* + gg^*$), then its FFT representation contains only real values.
+    \item \texttt{ffSampling.cpp}, \texttt{ffSampling.h}: Our FSM-based implementation of the ffSampling algorithm for the \textsmaller{FALCON} security level I parameter set.
+\end{itemize}
 
-In Falcon, since the input polynomials are real, this Hermitian property is directly exploited. The second half of the spectrum is simply the complex conjugate of the first half, so only $n$/2 complex values must be computed and stored. This reduces both computation and storage requirements by approximately half compared to a conventional complex FFT. This property is clearly described in the Falcon specification and reflected in the original fft.c implementation provided by the Falcon team. 
+\subsection{FFT Representation and Hermitian Symmetry}
 
-Our ffSampling is divide into 4 algorithmic states: splitfft, SamplerZ, Calculate corresponding $t_0$ from $t_1$, mergefft as in order present in ffSampling.cpp. The recursive computation flow is tracked by 4 variables: $state$ controls current FSM operation, $n$ represents recursion level of $\mathsf{ffSampling}_n$, $idx$ tracks position of the current subproblem in the recursion tree. 
+The FFT of a polynomial $f$ evaluates $f(\zeta)$ at all roots $\zeta$ of the polynomial $\phi$ over $\mathbb{C}$. Since $\phi$ has distinct complex roots, the FFT produces $n$ complex values, each consisting of a real part and an imaginary part. Storing all these values requires $2n$ floating-point numbers.
 
-Besides the software code, the implementation of configurable Falcon signature generation has been developed by our team detail both in C code and RTL Verilog code, which will be available in here together with the time of paper is publish. We warmly welcome your contribution and please feel free to contact us for discussion (email: dangquang@inha.edu).
+However, when $f$ has real coefficients, its FFT representation exhibits Hermitian symmetry. For every root $\zeta$ of $\phi$, its complex conjugate $\bar{\zeta}$ is also a root, and
+\begin{equation}
+    f(\bar{\zeta}) = \overline{f(\zeta)}.
+\end{equation}
+Consequently, the FFT representation contains redundant information, allowing half of the complex values to be omitted. The representation can therefore be stored using $n/2$ complex values, equivalent to $n$ floating-point numbers.
+
+The Hermitian adjoint of $f$ is obtained in the FFT representation by taking the complex conjugate of each value, which negates its imaginary part. Therefore, when a polynomial is equal to its Hermitian adjoint, such as $ff^* + gg^*$, its FFT representation contains only real values.
+
+\textsmaller{FALCON} exploits this property because its input polynomials have real coefficients. The second half of the spectrum is determined by the complex conjugates of the first half, so only $n/2$ complex values need to be computed and stored. This reduces the storage requirements of the FFT representation by half and can also reduce the associated computational cost. This property is described in the \textsmaller{FALCON} specification and reflected in the original \texttt{fft.c} implementation provided by the \textsmaller{FALCON} team.
+
+\subsection{FSM-Based ffSampling Algorithm}
+
+Our ffSampling implementation is organized into four algorithmic states, executed in the following order: \texttt{splitfft}, \texttt{SamplerZ}, calculation of the corresponding $t_0$ from $t_1$, and \texttt{mergefft}, as implemented in \texttt{ffSampling.cpp}.
+
+The recursive computation flow is managed using three variables:
+\begin{itemize}
+    \item \texttt{state} controls the current FSM operation.
+    \item $n$ represents the recursion level of $\mathsf{ffSampling}_n$.
+    \item \texttt{idx} tracks the position of the current subproblem in the recursion tree.
+\end{itemize}
+
+This FSM-based organization replaces recursive function calls with explicit state and index management, making the algorithm easier to trace and more suitable for hardware implementation.
+
+\subsection{Hardware Implementation}
+
+In addition to the software implementation, our team has developed a configurable \textsmaller{FALCON} signature-generation architecture in both C and RTL Verilog. The corresponding source code will be made available in this repository upon publication of the associated paper.
+
+Contributions, feedback, and technical discussions are welcome. Please feel free to contact us at \texttt{dangquang@inha.edu}.
