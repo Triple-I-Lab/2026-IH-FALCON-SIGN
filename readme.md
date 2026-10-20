@@ -22,7 +22,7 @@ Consequently, the FFT representation contains redundant information, allowing ha
 
 The Hermitian adjoint of $f$ is obtained in the FFT representation by taking the complex conjugate of each value, which negates its imaginary part. Therefore, when a polynomial is equal to its Hermitian adjoint, such as $ff^* + gg^*$, its FFT representation contains only real values.
 
-FALCON exploits this property because its input polynomials have real coefficients. The second half of the spectrum is determined by the complex conjugates of the first half, so only $n/2$ complex values need to be computed and stored. This reduces the storage requirements of the FFT representation by half and can also reduce the associated computational cost. This property is described in the FALCON specification and reflected in the original \texttt{fft.c} implementation provided by the \textsmaller{FALCON} team.
+FALCON exploits this property because its input polynomials have real coefficients. The second half of the spectrum is determined by the complex conjugates of the first half, so only $n/2$ complex values need to be computed and stored. This reduces the storage requirements of the FFT representation by half and can also reduce the associated computational cost. This property is described in the FALCON specification and reflected in the original \texttt{fft.c} implementation provided by the FALCON team.
 
 FSM-Based ffSampling Algorithm
 
