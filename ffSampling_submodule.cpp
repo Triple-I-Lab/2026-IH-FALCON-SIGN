@@ -670,3 +670,19 @@ void poly_mult_fft(fpr* a, const fpr* b, unsigned logn) {
 		FPC_MUL(a[u], a[u + hn], a_re, a_im, b_re, b_im);
 	}
 }
+
+void poly_add(fpr* a, const fpr* b, unsigned logn) {
+	size_t n, u;
+	n = (size_t)1 << logn;
+	for (u = 0; u < n; u++) {
+		a[u] = fpr_add(a[u], b[u]);
+	}
+}
+
+void poly_sub(fpr* a, const fpr* b, unsigned logn) {
+	size_t n, u;
+	n = (size_t)1 << logn;
+	for (u = 0; u < n; u++) {
+		a[u] = fpr_sub(a[u], b[u]);
+	}
+}
