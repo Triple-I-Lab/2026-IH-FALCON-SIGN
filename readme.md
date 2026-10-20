@@ -1,6 +1,6 @@
 Overview
 
-The Fast Fourier Transform (FFT) and fast Fourier sampling (ffSampling) are among the most challenging components of \textsmaller{FALCON} to implement efficiently because of their intensive floating-point arithmetic and recursive computational structure. This project provides source code for FFT/IFFT computation in \textsmaller{FALCON} and our proposed efficient ffSampling algorithm. The proposed algorithm uses a finite-state machine (FSM) to control the sampling process, providing a more implementation-friendly alternative to the recursive algorithm specified in FALCON, particularly for hardware implementation.
+The Fast Fourier Transform (FFT) and fast Fourier sampling (ffSampling) are among the most challenging components of \textsmaller{FALCON} to implement efficiently because of their intensive floating-point arithmetic and recursive computational structure. This project provides source code for FFT/IFFT computation in FALCON and our proposed efficient ffSampling algorithm. The proposed algorithm uses a finite-state machine (FSM) to control the sampling process, providing a more implementation-friendly alternative to the recursive algorithm specified in FALCON, particularly for hardware implementation.
 
 The implementation was developed and verified based on the FALCON team's open-source code, available at https://falcon-sign.info/.
 
