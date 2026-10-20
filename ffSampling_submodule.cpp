@@ -656,3 +656,17 @@ void poly_add_logn(fpr a[512], fpr b[512], unsigned logn, int j) {
 		FPC_ADD(b[u*p + index], b[u*p + index + 256], a_re, a_im, b_re, b_im);
 	}
 }
+
+void poly_mult_fft(fpr* a, const fpr* b, unsigned logn) {
+	size_t n, hn, u;
+	n = (size_t)1 << logn;
+	hn = n >> 1;
+	for (u = 0; u < hn; u++) {
+		fpr a_re, a_im, b_re, b_im;
+		a_re = a[u];
+		a_im = a[u + hn];
+		b_re = b[u];
+		b_im = b[u + hn];
+		FPC_MUL(a[u], a[u + hn], a_re, a_im, b_re, b_im);
+	}
+}
