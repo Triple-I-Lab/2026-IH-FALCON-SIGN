@@ -2,14 +2,15 @@ Overview
 
 The Fast Fourier Transform (FFT) and fast Fourier sampling (ffSampling) are among the most challenging components of \textsmaller{FALCON} to implement efficiently because of their intensive floating-point arithmetic and recursive computational structure. This project provides source code for FFT/IFFT computation in \textsmaller{FALCON} and our proposed efficient ffSampling algorithm. The proposed algorithm uses a finite-state machine (FSM) to control the sampling process, providing a more implementation-friendly alternative to the recursive algorithm specified in \textsmaller{FALCON}, particularly for hardware implementation.
 
-The implementation was developed and verified based on the \textsmaller{FALCON} team's open-source code, available at \url{https://falcon-sign.info/}.
+The implementation was developed and verified based on the \textsmaller{FALCON} team's open-source code, available at https://falcon-sign.info/.
 
 Source Files
-    \texttt{fft.cpp}, \texttt{fft.h}: Adapted from the original \texttt{fft.c} provided by the \textsmaller{FALCON} team and modified to support standalone execution. These files provide two FFT and two IFFT functions corresponding to the two polynomial degrees, $n=512$ and $n=1024$, used by \textsmaller{FALCON}.
+
+    fft.cpp, fft.h: Adapted from the original fft.c provided by the \textsmaller{FALCON} team and modified to support standalone execution. These files provide two FFT and two IFFT functions corresponding to the two polynomial degrees, $n=512$ and $n=1024$, used by \textsmaller{FALCON}.
     
-    \texttt{radix2.cpp}, \texttt{radix2.h}: Our optimized radix-2 FFT/IFFT implementation for \textsmaller{FALCON}.
+    radix2.cpp, radix2.h: Our optimized radix-2 FFT/IFFT implementation for \textsmaller{FALCON}.
     
-    \texttt{ffSampling.cpp}, \texttt{ffSampling.h}: Our FSM-based implementation of the ffSampling algorithm for the \textsmaller{FALCON} security level I parameter set.
+    ffSampling.cpp, ffSampling.h: Our FSM-based implementation of the ffSampling algorithm for the \textsmaller{FALCON} security level I parameter set.
 
 FFT Representation and Hermitian Symmetry
 
