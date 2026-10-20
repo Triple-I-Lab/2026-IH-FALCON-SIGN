@@ -6,7 +6,7 @@ The implementation was developed and verified based on the FALCON team's open-so
 
 Source Files
 
-fft.cpp, fft.h: Adapted from the original fft.c provided by the \textsmaller{FALCON} team and modified to support standalone execution. These files provide two FFT and two IFFT functions corresponding to the two polynomial degrees, $n=512$ and $n=1024$, used by FALCON.
+fft.cpp, fft.h: Adapted from the original fft.c provided by the FALCON team and modified to support standalone execution. These files provide two FFT and two IFFT functions corresponding to the two polynomial degrees, $n=512$ and $n=1024$, used by FALCON.
     
 radix2.cpp, radix2.h: Our optimized radix-2 FFT/IFFT implementation for FALCON.
     
@@ -22,7 +22,7 @@ Consequently, the FFT representation contains redundant information, allowing ha
 
 The Hermitian adjoint of $f$ is obtained in the FFT representation by taking the complex conjugate of each value, which negates its imaginary part. Therefore, when a polynomial is equal to its Hermitian adjoint, such as $ff^* + gg^*$, its FFT representation contains only real values.
 
-FALCON exploits this property because its input polynomials have real coefficients. The second half of the spectrum is determined by the complex conjugates of the first half, so only $n/2$ complex values need to be computed and stored. This reduces the storage requirements of the FFT representation by half and can also reduce the associated computational cost. This property is described in the \textsmaller{FALCON} specification and reflected in the original \texttt{fft.c} implementation provided by the \textsmaller{FALCON} team.
+FALCON exploits this property because its input polynomials have real coefficients. The second half of the spectrum is determined by the complex conjugates of the first half, so only $n/2$ complex values need to be computed and stored. This reduces the storage requirements of the FFT representation by half and can also reduce the associated computational cost. This property is described in the FALCON specification and reflected in the original \texttt{fft.c} implementation provided by the \textsmaller{FALCON} team.
 
 FSM-Based ffSampling Algorithm
 
