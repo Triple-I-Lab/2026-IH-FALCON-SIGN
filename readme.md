@@ -34,6 +34,6 @@ This FSM-based organization replaces recursive function calls with explicit stat
 
 Hardware Implementation
 
-In addition to the software implementation, our team has developed a configurable \textsmaller{FALCON} signature-generation architecture in both C and RTL Verilog. The corresponding source code will be made available in this repository upon publication of the associated paper.
+In addition to the software implementation, our team has developed a configurable FALCON signature generation architecture in both C and RTL Verilog. The corresponding source code will be made available in this repository upon publication of the associated paper.
 
 Contributions, feedback, and technical discussions are welcome. Please feel free to contact us at \texttt{dangquang@inha.edu}.
